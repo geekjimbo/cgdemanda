@@ -39,7 +39,7 @@ if not(os.path.exists(xls_dir)):
     sys.exit(1)
 else:
     log_write("INFO: Copiando los archivos fuente")
-    commx = 'cp ' + xls_dir + '*.XLS ' + Data_Base_dir
+    commx = 'cp -p ' + xls_dir + '*.XLS ' + Data_Base_dir
     os.system(commx)
 
 my_dict=[]
@@ -60,14 +60,14 @@ if not(my_local_dict.has_key("File_name")):
 for line in end_of_pipe:
 #    pdb.set_trace()
     a=str(line.strip())
-    if (a== ""):
+    if (a== "" or a=="xlsx"):
         print "nothing "
         continue
     if (my_flag==0):
         print a
         if(a==my_local_dict["File_name"]):
             my_flag= 1
-            print "File Match the pattern"
+            log_write("INFO: File Match the pattern")
         continue
     temp_path = Data_Base_dir + a 
     if (os.path.exists(temp_path)):
