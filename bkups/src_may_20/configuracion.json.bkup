@@ -1,0 +1,201 @@
+{
+"Barras" : {
+	"variables" : [
+		{
+			"name": "DoubleTime",
+			"adjust": "1"
+		},
+		{
+			"name": "StringTime",
+			"adjust": "1"
+		},
+		{
+			"name": "Trigger",
+			"adjust": "1"
+		},
+		{
+			"name": "Sequence",
+			"adjust": "1"
+		},
+		{
+			"name": "V1",
+			"adjust": "120"
+		},
+		{
+			"name": "V2",
+			"adjust": "120"
+		},
+		{
+			"name": "V3",
+			"adjust": "120"
+		},
+		{
+			"name": "V1 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "V2 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "V3 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "V12",
+			"adjust": "1"
+		},
+		{
+			"name": "V23",
+			"adjust": "1"
+		},
+		{
+			"name": "V31",
+			"adjust": "1"
+		},
+		{
+			"name": "I1 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "I2 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "I3 THD",
+			"adjust": "1"
+		}
+
+	],
+	"archivos" : [
+		{
+			"name": "Barra_A_Guayabal.mdb.Full.dlog1.csv"
+		},
+		{
+			"name": "Barra_B_Guayabal.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Barra_C_Guayabal.mdb.FULL.dlog1.csv"
+		}
+	]
+	
+	},
+
+"Medidores" : {	
+
+	"variables" : [
+		{
+			"name": "DoubleTime",
+			"adjust": "1"
+		},
+		{
+			"name": "StringTime",
+			"adjust": "1"
+		},
+		{
+			"name": "Trigger",
+			"adjust": "1"
+		},
+		{
+			"name": "Sequence",
+			"adjust": "1"
+		},
+		{
+			"name": "V1",
+			"adjust": "1"
+		},
+		{
+			"name": "V2",
+			"adjust": "1"
+		},
+		{
+			"name": "V3",
+			"adjust": "1"
+		},
+		{
+			"name": "V1 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "V2 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "V3 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "V12",
+			"adjust": "1"
+		},
+		{
+			"name": "V23",
+			"adjust": "1"
+		},
+		{
+			"name": "V31",
+			"adjust": "1"
+		},
+		{
+			"name": "I1 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "I2 THD",
+			"adjust": "1"
+		},
+		{
+			"name": "I3 THD",
+			"adjust": "1"
+		}
+
+	],
+
+	"archivos" : [
+		{
+			"name": "BK_Nicoya.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "BNCR_Jicaral.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Clinica_Filadelfia.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Clinica_Hojancha.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Flamingo_Hotel.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Hacienda_Pinilla.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Hospital_Nicoya.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Ingenio_CATSA.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "MARRIOT.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Melonera_Caimital.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "RIU_Hotel.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "SupercomproCoco.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Tamarindo_AutoMercado.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Tribunales_Sta_Cruz.mdb.FULL.dlog1.csv"
+		},
+		{
+			"name": "Westin.mdb.FULL.dlog1.csv"
+		}
+	]}
+}
