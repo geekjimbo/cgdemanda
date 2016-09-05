@@ -25,7 +25,7 @@ def log_write(New_String):
         time.sleep(0.1)
 
 
-with open('configuracion.json', 'r') as f:
+with open('/home/infografico/coopecg/src/recierres/configuracion.json', 'r') as f:
     data_json = json.load(f)
     Data_Base_dir = data_json["Variable_Database"]["source_path"]
     postgresql_path = data_json["Variable_Database"]["postgresql_connect"]

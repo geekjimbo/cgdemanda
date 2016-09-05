@@ -34,7 +34,7 @@ query_insert_recierres = "INSERT INTO datos_recierres (\
                 %(timestamp)s , \
                 %(counter)s)"
 
-with open('configuracion.json', 'r') as f:
+with open('/home/infografico/coopecg/src/recierres/configuracion.json', 'r') as f:
     data_json = json.load(f)
     Data_Base_dir = data_json["Variable_Database"]["source_path"] + 'xlsx/'
     postgresql_path = data_json["Variable_Database"]["postgresql_connect"]
@@ -49,7 +49,7 @@ if not(os.path.exists(xls_dir)):
     sys.exit(1)
 else:
     log_write("INFO: Copiando los archivos fuente")
-    commy = 'python 1recierres_conversion.py'# + xls_dir + '*.XLS ' + Data_Base_dir
+    commy = 'python /home/infografico/coopecg/src/recierres/1recierres_conversion.py'# + xls_dir + '*.XLS ' + Data_Base_dir
     os.system(commy)
     log_write("INFO: Fin del script de conversion Archivos XLS")
 #pickle.dump(my_local_dict , open(ctlfile_dir + 'recierres.txt' , 'wb'))

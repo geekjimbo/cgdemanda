@@ -94,7 +94,7 @@ query_insert = "INSERT INTO datos_electricos (\
 #print resultado.head()
 #Loading "configuracion.json"
 #with open('cosa', 'r') as f:
-with open('configuracion.json', 'r') as f:
+with open('/home/infografico/coopecg/src/configuracion.json', 'r') as f:
 #with open('configuracion.json', 'r') as f:
     data_json = json.load(f)
     Data_Base_dir = data_json["Variable_Database"]["source_path"]
