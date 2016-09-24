@@ -113,7 +113,7 @@ query_insert_event = "INSERT INTO datos_eventos (\
 
 #Loading "configuracion.json"
 #with open('cosa', 'r') as f:
-with open('configuracion.json', 'r') as f:
+with open('/home/infografico/coopecg/src/configuracion.json', 'r') as f:
 #with open('configuracion.json', 'r') as f:
     data_json = json.load(f)
     Data_Base_dir = data_json["Variable_Database"]["source_path"]
@@ -148,7 +148,8 @@ for i in data_json["Eventos"]["archivos"]:
 #            my_average_list2=[]
 #            my_unb_list=[]
 #            my_unb_list2=[]
-            if (float(csv_row["DoubleTimeStart"]) <= float(str(my_local_dict[(i["name"])]))):
+    
+            if (float(csv_row["DoubleTimeStart"]) < float(str(my_local_dict[(i["name"])]))):
 #                print "no hay loop"
                 continue
             for electrical_variable in data_json["Eventos"]["variables"]:
