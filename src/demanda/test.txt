@@ -1,9 +1,0 @@
-total 60
--rw-rw-r-- 1 infografico infografico   170 Sep 18 14:30 README
--rwxr-xr-x 1 infografico infografico    63 Sep 18 14:30 exec
--rw-rw-r-- 1 infografico infografico  9088 Sep 18 14:39 configuracion.json
--rw-rw-r-- 1 infografico infografico 22794 Sep 18 16:39 out.txt
--rwxr-xr-x 1 infografico infografico  7814 Sep 20 09:21 demanda_script_old.py
--rwxr-xr-x 1 infografico infografico  2211 Sep 20 09:25 demanda_script.py
--rwxr-xr-x 1 infografico infografico  3916 Sep 25 12:07 1demanda_conversion.py
--rw-rw-r-- 1 infografico infografico     0 Sep 25 12:12 test.txt

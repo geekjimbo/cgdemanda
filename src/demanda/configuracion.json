@@ -143,6 +143,7 @@
     "postgresql_connect" : "dbname=postgres host=172.16.1.101 port=5432 user=postgres password=infografico",
     "logfile_path" : "/home/infografico/coopecg/logs/",
     "processed_path" : "/home/infografico/coopecg/DataBase/demandas/xlsx/procesados/",
+    "df_path" : "/home/infografico/coopecg/DataBase/df/",
     "control_path": "/home/infografico/coopecg/control/"
     },
 
