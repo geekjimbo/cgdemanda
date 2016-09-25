@@ -32,6 +32,7 @@ with open('/home/infografico/coopecg/src/demanda/configuracion.json', 'r') as f:
     logfile_dir=data_json["Variable_Database"]["logfile_path"]
     ctlfile_dir=data_json["Variable_Database"]["control_path"]
     xls_dir = data_json["Variable_Database"]["xls_path"]
+    df_dir = data_json["Variable_Database"]["df_path"]
 
 log_write("Inicializacion del Script de copia de Datos fuente de Demanda de CoopeGuanacaste")
 #pdb.set_trace()
