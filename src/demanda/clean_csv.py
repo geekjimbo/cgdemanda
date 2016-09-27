@@ -1,6 +1,7 @@
 import pandas as pd
 
 def reshape(path, file_name):
+    print path+file_name
     _df = pd.read_csv(path+file_name, encoding = 'iso-8859-1')
 
     df = _df.set_index('TIME').stack()

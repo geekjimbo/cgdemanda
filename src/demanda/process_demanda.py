@@ -15,6 +15,20 @@ from openpyxl import load_workbook
 
 from etl_controller import etl
 
+def clean_names(filepath):
+    # convert into df
+    df = pd.read_csv(filepath)
+
+    # quitar Circuitos de los nombres excepto por aquellas remotas que son ICE
+    r = {'_AI\\d*': '', '_KW\\d*': '', '_\\d*Ph': '', '_kW\\d*': '', 'Unnamed: 32': 'Sin Nombre'}
+    df1 = df[df['remota'].map(lambda x: '_ICE_' not in x)]
+    df2 = df[df['remota'].map(lambda x: '_ICE_' in x)]
+    df1['remota'] = df1['remota'].replace(r, regex=True)
+    dfr = df1.append(df2)
+    dfr.to_csv(filepath, index=False)
+    return len(dfr)
+
+
 def log_write(New_String):
     print New_String
     if not(os.path.exists(logfile_dir)):
@@ -26,7 +40,7 @@ def log_write(New_String):
         fh1.write(log_time + New_String +'\n')
         time.sleep(0.1)
 
-def today_files():
+def get_today_files():
     ls= subprocess.Popen(['ls', '-ltr', Data_Base_dir], stdout=subprocess.PIPE,)
     aws=subprocess.Popen(['awk','{print $9}'],stdin=ls.stdout,stdout=subprocess.PIPE,)
     end_of_pipe = aws.stdout
@@ -40,6 +54,10 @@ def today_files():
         narr.append(i[0:len(i)-5])
     return narr
 
+def today_files():
+    narr = get_today_files()
+    return narr
+
 def old_files():
     arr = []
     df = pd.read_csv(df_dir+'demanda_df.csv')
@@ -47,6 +65,11 @@ def old_files():
         arr.append(i)
     return arr
 
+def log_df():
+    narr = get_today_files()
+    df = pd.DataFrame(narr, columns=['file_name'])
+    df.to_csv(df_dir+'demanda_df.csv', index=False)
+    return len(df)
 
 # controller
 if __name__ == "__main__": 
@@ -72,7 +95,7 @@ if __name__ == "__main__":
     old_files = old_files()
     today_files = today_files()
     new_files = list(set(today_files) - set(old_files)) 
-   
+
     for line in new_files:
         a=str(line.strip())
         if (a!= "" and a!="xlsx" and a != "dir"):
@@ -87,23 +110,39 @@ if __name__ == "__main__":
                 #pickle.dump(my_local_dict , open(ctlfile_dir + 'demanda.txt' , 'wb'))
             continue
 
-    # clean up headers
-    log_write("INFO: cleaning CSV headers")
-    ret = os.popen("sed -i 's/\(\"\)\([\d*_[a-zA-Z0-9-]*]*\)\(,[a-zA-Z0-9_]*:Average\"\)/\\2/g' "+Data_Base_dir+"/csv/*.csv ").readlines()
+    # transform all CSV into a data_frame
+    log_write("INFO: launching ETL")
+    ret = etl(Data_Base_dir+"csv/")
 
     # substitute commas (,) for points (.) in float values
     log_write("INFO: substitute commas for points in float values")
-    ret = os.popen("sed -i 's/\(\"[-]*[0-9]*\)\(,\)\([0-9]*[[:space:]]*\"\)/\\1.\\3/g' "+Data_Base_dir+"/csv/*.csv ").readlines()
+    ret = os.popen("sed -i 's/\"\([0-9]\+\),\([0-9]\+\)\([[:space:]]*\"\)/\\1.\\2/g' "+Data_Base_dir+"csv/all_data/all_data.csv").readlines()
+    ret = os.popen("sed -i 's/\"\([-]\+[0-9]\+\),\([0-9]\+\)\([[:space:]]*\"\)/\\1.\\2/g' "+Data_Base_dir+"csv/all_data/all_data.csv").readlines()
 
-    # get rid of all "s
-    log_write("INFO: delete all double commands")
-    ret = os.popen("sed -i -r 's/\"//g' "+Data_Base_dir+"/csv/*.csv ").readlines()
+    # delete all old headers, double quotes, commas in remotas's names
+    log_write("INFO: delete all old headers and  double quotes and commas in remotas names")
+    ret = os.popen("sed -i 's/\(\"\)\([0-9]\+_[a-zA-Z0-9_]\+\)\(,\)\([a-zA-Z0-9]\+\)\(\"\)/\\2_\\4/g' "+Data_Base_dir+"csv/all_data/all_data.csv ").readlines()
+    ret = os.popen("sed -i 's/\(\"\)\([a-zA-Z0-9]\+\)\(,\)\([a-zA-Z0-9_]\+\)\(\"\)/\\2_\\4/g' "+Data_Base_dir+"csv/all_data/all_data.csv ").readlines()
 
-    # transform all CSV into a data_frame
-    log_write("INFO: launching ETL")
-    ret = etl(Data_Base_dir+"/csv/")
+    # clean up new headers from noise
+    log_write("INFO: clear new headers")
+    ret = os.popen("sed -i 's/\([\d*_[a-zA-Z0-9-]*]*\)\(,\)\([a-zA-Z0-9_]*\)\(:Average\)/\\1_\\3/g' "+Data_Base_dir+"csv/all_data/all_data.csv ").readlines()
+    ret = os.popen("sed -i 's/\(Belen-Filadelfia\)\(,\)/\\1_/g' "+Data_Base_dir+"csv/all_data/all_data.csv ").readlines()
+    ret = os.popen("sed -i 's/\"//g' "+Data_Base_dir+"csv/all_data/all_data.csv ").readlines()
 
-    # transform all CSV into a data_frame
+    # clean up remota's names inside df
+    log_write("INFO: cleaning names like ICE")
+    ret = clean_names(Data_Base_dir+"csv/all_data/all_data.csv")
+
+    # import demandas kw data into postgres
     log_write("INFO: importing demandas kw data into postgres")
     psql_command = "psql -U postgres postgres://postgres:infografico@172.16.1.101:5432/postgres -f ~/coopecg/src/demanda/import.psql"
     ret = os.popen(psql_command).readlines()
+
+    # move all .csv to procesados dir
+    log_write("INFO: moving .csv to procesados directory")
+    ret = os.popen("mv "+Data_Base_dir+"csv/*.csv "+Data_Base_dir+"csv/procesados").readlines()
+
+    # log today's files i /df
+    log_write("INFO: Log today's file in /df")
+    ret = log_df()
