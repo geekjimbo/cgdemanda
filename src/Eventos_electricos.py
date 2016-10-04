@@ -148,10 +148,10 @@ for i in data_json["Eventos"]["archivos"]:
 #            my_average_list2=[]
 #            my_unb_list=[]
 #            my_unb_list2=[]
-    
-            if (float(csv_row["DoubleTimeStart"]) < float(str(my_local_dict[(i["name"])]))):
+   #Filtro de fechas 
+#            if (float(csv_row["DoubleTimeStart"]) < float(str(my_local_dict[(i["name"])]))):
 #                print "no hay loop"
-                continue
+ #               continue
             for electrical_variable in data_json["Eventos"]["variables"]:
                 csv_var_name = '{0:s}'.format(electrical_variable["name"])
                 DB_var_name ='{0:s}'.format(electrical_variable["DB_column_name"])

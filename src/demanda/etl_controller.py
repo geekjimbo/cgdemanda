@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from etl_csv import prepare_csv
 
 def etl(source_path):
