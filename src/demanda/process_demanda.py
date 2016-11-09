@@ -12,7 +12,8 @@ import os
 import pandas as pd
 from datetime import datetime
 from openpyxl import load_workbook
-
+import logging
+import coloredlogs
 from etl_controller import etl
 
 def clean_names(filepath):
@@ -27,7 +28,6 @@ def clean_names(filepath):
     dfr = df1.append(df2)
     dfr.to_csv(filepath, index=False)
     return len(dfr)
-
 
 def log_write(New_String):
     print New_String
@@ -73,6 +73,21 @@ def log_df():
 
 # controller
 if __name__ == "__main__": 
+
+    logname = './logs/development.log'
+
+    logging.basicConfig(filename=logname,
+        filemode='a',
+        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        level=logging.DEBUG)
+
+    #color logs
+    coloredlogs.install()
+    logging.addLevelName( logging.WARNING, "\033[1;31m%s\033[1;0m" % logging.getLevelName(logging.WARNING))
+    logging.addLevelName( logging.ERROR, "\033[1;41m%s\033[1;0m" % logging.getLevelName(logging.ERROR))
+    logging.addLevelName( logging.INFO, "\033[0;32m%s\033[1;0m" % logging.getLevelName(logging.INFO))
+    logging.addLevelName( logging.DEBUG, "\033[1;36m%s\033[1;0m" % logging.getLevelName(logging.DEBUG))
 
     with open('/home/infografico/coopecg/src/demanda/configuracion.json', 'r') as f:
         data_json = json.load(f)
